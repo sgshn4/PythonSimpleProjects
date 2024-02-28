@@ -1,42 +1,52 @@
-def solution(source):
-    symbols = []
-    equals = False
-    plus = False
-    one = False
-    index = -1
-    start_index = -1
+import utils
+
+
+def solution(lines):
     result = []
-    # Getting symbols
-    for i in source:
-        symbols.append(i)
-    for i in symbols:
-        index += 1
-        if i == '=':
-            start_index = index
-            equals = True
-        elif i == '+' and equals:
-            plus = True
-        elif i == '1' and equals and plus:
-            one = True
-        elif equals or plus and i == ' ':
-            pass
-        else:
-            equals = False
-            plus = False
-            one = False
-        if equals and plus and one:
-            result = solution(replace(symbols, index, start_index))
+    for line in lines:
+        equals = False
+        plus = False
+        one = False
+        minus = False
+        start_index = -1
+        for i in range(len(line)):
+            if line[i] == '=':
+                start_index = i
+                equals = True
+            elif line[i] == '+' and equals:
+                plus = True
+            elif line[i] == '-' and equals:
+                minus = True
+            elif (line[i] == '1' and equals and plus) or (line[i] == '1' and equals and minus):
+                one = True
+            elif equals or plus or minus and line[i] == ' ':
+                pass
+            else:
+                equals = False
+                plus = False
+                one = False
+                minus = False
+            if (equals and plus and one) or (equals and minus and one):
+                line = replace(line, start_index, plus)
+                break
+        result.append(line)
     return result
 
 
-def replace(symbols, index, start_index):
+def replace(symbols, start_index, plus):
     replace_start = -1
-    for i in reversed(range(index)):
-        if symbols[i] != ' ':
+    for i in reversed(range(start_index)):
+        if symbols[i + 1] == '=' and symbols[i] != ' ':
+            replace_start = start_index - 1
+            break
+        elif symbols[i] != ' ':
             replace_start = i
-    symbols[replace_start + 1] = '+'
-    symbols[replace_start + 2] = '+'
-    for i in range(start_index + 3, index):
-        symbols.remove(symbols.pop[i])
+            break
+    if plus:
+        symbols = symbols[:replace_start + 1] + '++;'
+    else:
+        symbols = symbols[:replace_start + 1] + '--;'
     return symbols
 
+
+print(solution(utils.read_file('txt.txt')))
