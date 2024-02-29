@@ -7,11 +7,10 @@ def read_file(path):
     return lines
 
 
-def write_file(path, t):
+def write_file(path, lines):
     string = ''
-    for i in t:
-        string = (string + i.get_title() + '|' + str(i.get_memory()) + '|' + str(i.get_rating()) + '|' +
-                  str(i.get_price()) + '\n')
+    for line in lines:
+        string = string + line + '\n'
     f = open(path, 'w')
     f.write(string)
     f.close()
