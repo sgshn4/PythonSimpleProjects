@@ -19,4 +19,3 @@ def write_file(path, t):
     f = open(path, 'w')
     f.write(string)
     f.close()
-
