@@ -14,8 +14,8 @@ def read_file(path):
 def write_file(path, t):
     string = ''
     for i in t:
-        string = (string + i.get_title() + '|' + str(i.get_memory()) + '|' + str(i.get_rating()) + '|' +
-                  str(i.get_price()) + '\n')
+        string = (string + i.title + '|' + str(i.memory) + '|' + str(i.rating) + '|' +
+                  str(i.price) + '\n')
     f = open(path, 'w')
     f.write(string)
     f.close()

@@ -1,0 +1,8 @@
+Samsung Galaxy S3 DUO|128|4|6000
+Samsung Galaxy S2 DUO|128|3|3500
+Nokia 2s5d8|256|4|5000
+Chi ha|256|4|5000
+Xiaomi Pad 6|256|4|39999
+Apple iPad (9th Gen)|64|4|33999
+Xiaomi Redmi Pad|64|4|16999
+Huawei MatePad 11|128|4|25999
