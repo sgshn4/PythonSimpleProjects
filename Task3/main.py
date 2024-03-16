@@ -1,38 +1,13 @@
-import tablet
 import utils
-import random
+import choicer
 
+TABLETS_PATH = 'input/tablets.txt'
+INPUT_PATH = 'input/input.txt'
+OUTPUT_PATH = 'output/output.txt'
+tablets = utils.read_tablets(TABLETS_PATH)
+tests = utils.read_data(INPUT_PATH)
+result = []
+for i in tests:
+    result.append(choicer.solution(tablets, int(i[0]), int(i[1]), int(i[2])))
+utils.write_file(OUTPUT_PATH, result)
 
-def solution(gadgets, rating, memory, count):
-    sorted_gadgets = []
-    gadget = None
-
-    # Sort by memory and price
-    for i in gadgets:
-        if i.memory >= memory and i.rating >= rating:
-            sorted_gadgets.append(i)
-
-    # Sort by price
-    for i in sorted_gadgets:
-        if gadget is None or gadget.price > i.price:
-            gadget = i
-    return output(gadget, count)
-
-
-def output(gadget, count):
-    if gadget is not None:
-        result = (str(gadget.title) + '|' + str(gadget.memory) + '|' + str(gadget.rating) + '|' + str(gadget.price) +
-                  '|' + str(gadget.price * count))
-    else:
-        result = ''
-    return result
-
-
-print('=====Price List=====')
-memory = int(input('Input memory: '))
-rating = int(input('Input rating: '))
-count = int(input('Input count: '))
-print('====================')
-result = solution(utils.read_file('txt.txt'), rating, memory, count)
-print(result)
-print('====================')
