@@ -1,12 +1,21 @@
 import tablet
 
 
-def read_file(path):
+def read_tablets(path):
+    strs = read_data(path)
+    tablets = []
+    for i in strs:
+        tablets.append(tablet.Tablet(i[0], int(i[1]), int(i[2]), int(i[3])))
+    return tablets
+
+
+def read_data(path):
     t = []
     f = open(path)
     for line in f:
         line_obj = line.split('|')
-        t.append(tablet.Tablet(line_obj[0], int(line_obj[1]), int(line_obj[2]), int(line_obj[3])))
+        line_obj[-1] = line_obj[-1][:-1]
+        t.append(line_obj)
     f.close()
     return t
 
@@ -14,8 +23,7 @@ def read_file(path):
 def write_file(path, t):
     string = ''
     for i in t:
-        string = (string + i.title + '|' + str(i.memory) + '|' + str(i.rating) + '|' +
-                  str(i.price) + '\n')
+        string = string + i + '\n'
     f = open(path, 'w')
     f.write(string)
     f.close()
