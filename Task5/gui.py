@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QDesktopWidget, QPushButton, QTableWidget, QHBoxLayout, QVBoxLayout, QLabel
-from PyQt5.QtWidgets import QTableWidgetItem, QTableView, QAbstractItemView
+from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox
 from PyQt5.QtGui import QColor
 from PyQt5 import QtCore
 
@@ -37,6 +37,8 @@ class MainWindow(QWidget):
         self.table_widget.setColumnCount(self.game.map_w)
         self.table_widget.setRowCount(self.game.map_h)
         self.table_widget.cellClicked.connect(self.cell_clicked)
+        self.table_widget.verticalHeader().hide()
+        self.table_widget.horizontalHeader().hide()
         self.update_widgets()
         reset_button.clicked.connect(self.reset_button_clicked)
 
@@ -71,10 +73,15 @@ class MainWindow(QWidget):
     def cell_clicked(self, r, c):
         self.game.make_move(c, r)
         self.update_widgets()
-
-    def cell_double_clicked(self, r, c):
-        pass
+        self.check_lose()
 
     def reset_button_clicked(self):
         self.game.randomize_map()
         self.update_widgets()
+
+    def check_lose(self):
+        if self.game.is_lose:
+            self.dialog = QMessageBox(self)
+            self.dialog.setWindowTitle(' ')
+            self.dialog.setText(f'You Lose! \n Score: {self.game.score}')
+            self.dialog.exec()
