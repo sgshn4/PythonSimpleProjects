@@ -6,8 +6,8 @@ class Game:
     def __init__(self, w, h):
         self.map_w = w
         self.map_h = h
-        self.x = random.randint(0, w)
-        self.y = random.randint(0, h)
+        self.x = random.randint(0, w - 1)
+        self.y = random.randint(0, h - 1)
         self.game_map = self.randomize_map()
 
     def randomize_map(self):
@@ -25,15 +25,17 @@ class Game:
         # Move on Y Axis
         if point_x == self.x:
             for i in range(self.game_map[point_y][point_x]):
-                if 0 < self.y + self.y - point_y < self.map_h and self.game_map[self.y + self.y - point_y][self.x] is not '*':
+                if 0 < self.y + (point_y - self.y) < self.map_h and self.game_map[self.y + (point_y - self.y)][self.x] is not '*':
                     self.game_map[self.y][self.x] = '*'
-                    self.y + self.y - point_y
+                    self.y += (point_y - self.y)
         elif point_y == self.y:
             # Move on X Axis
             for i in range(self.game_map[point_y][point_x]):
-                if 0 < self.x + self.x - point_x < self.map_w and self.game_map[self.y][self.x + self.x - point_x] is not '*':
-                    self.game_map[self.y][self.x] = '*'
-                    self.x + self.x - point_x
+                print(self.x + (point_x - self.x))
+                if 0 < self.x + (point_x - self.x) < self.map_w:
+                    if self.game_map[self.y][self.x + (point_x - self.x)] is not '*':
+                        self.game_map[self.y][self.x] = '*'
+                        self.x += (point_x - self.x)
 
 
 

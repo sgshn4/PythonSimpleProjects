@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QDesktopWidget, QPushButton, QTableWidget, QHBoxLayout, QVBoxLayout, QLabel
-from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtWidgets import QTableWidgetItem, QTableView
 from PyQt5.QtGui import QColor
 import game
 
@@ -13,6 +13,7 @@ class MainWindow(QWidget):
         self.resize(1280, 720)
         self.game = game.Game(10, 10)
         self.game.randomize_map()
+        # Move to center
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
@@ -23,6 +24,7 @@ class MainWindow(QWidget):
         self.table_widget = QTableWidget()
         self.table_widget.setColumnCount(self.game.map_w)
         self.table_widget.setRowCount(self.game.map_h)
+        self.table_widget.cellClicked.connect(self.cell_clicked)
         self.update_table()
         vbox = QVBoxLayout()
         game_title = QLabel('Spy')
@@ -47,10 +49,12 @@ class MainWindow(QWidget):
             self.table_widget.setColumnWidth(i, 30)
             for j in range(len(self.game.game_map[i])):
                 self.table_widget.setItem(i, j, QTableWidgetItem(str(self.game.game_map[i][j])))
-                self.table_widget.cellPressed[int, int].connect(self.cell_clicked)
                 if self.game.game_map[i][j] == '*':
+                    self.table_widget.item(i, j).setBackground(QColor(0, 0, 200))
+                if i == self.game.y and j == self.game.x:
                     self.table_widget.item(i, j).setBackground(QColor(200, 0, 0))
 
     def cell_clicked(self, r, c):
-        self.game.make_move(r, c)
-
+        print(c, r)
+        self.game.make_move(c, r)
+        self.update_table()
