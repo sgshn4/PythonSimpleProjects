@@ -10,6 +10,7 @@ class Game:
         self.y = None
         self.game_map = None
         self.randomize_map()
+        self.score = 0
 
     def randomize_map(self):
         self.randomize_position()
@@ -34,16 +35,18 @@ class Game:
             for i in range(self.game_map[point_y][point_x]):
                 if (0 < self.y + step < self.map_h and self.game_map[self.y + step][self.x]
                         is not '*'):
-                    self.game_map[self.y][self.x] = '*'
                     self.y += step
+                    self.game_map[self.y][self.x] = '*'
+                    self.score += 1
         # Move on X Axis
         elif point_y == self.y:
             step = point_x - self.x
             for i in range(self.game_map[point_y][point_x]):
                 if (0 < self.x + step < self.map_w and self.game_map[self.y][self.x + step]
                         is not '*'):
-                    self.game_map[self.y][self.x] = '*'
                     self.x += step
+                    self.game_map[self.y][self.x] = '*'
+                    self.score += 1
         # Move on XY
         elif (point_x + 1 == self.x and (point_y + 1 == self.y or point_y - 1 == self.y)) or (
                 point_x - 1 == self.x and (point_y + 1 == self.y or point_y - 1 == self.y)):
@@ -54,6 +57,7 @@ class Game:
                     self.y + step_y][self.x] is not '*') and (
                         0 < self.x + step_x < self.map_w and self.game_map[self.y][
                             self.x + step_x] is not '*'):
-                    self.game_map[self.y][self.x] = '*'
                     self.x += step_x
                     self.y += step_y
+                    self.game_map[self.y][self.x] = '*'
+                    self.score += 1
