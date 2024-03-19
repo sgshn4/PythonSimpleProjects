@@ -6,11 +6,13 @@ class Game:
     def __init__(self, w, h):
         self.map_w = w
         self.map_h = h
-        self.x = random.randint(0, w - 1)
-        self.y = random.randint(0, h - 1)
-        self.game_map = self.randomize_map()
+        self.x = None
+        self.y = None
+        self.game_map = None
+        self.randomize_map()
 
     def randomize_map(self):
+        self.randomize_position()
         result = []
         for i in range(self.map_h):
             result.append([])
@@ -19,23 +21,39 @@ class Game:
                     result[i].append('*')
                 else:
                     result[i].append(random.randint(1, 6))
-        return result
+        self.game_map = result
+
+    def randomize_position(self):
+        self.x = random.randint(0, self.map_w - 1)
+        self.y = random.randint(0, self.map_h - 1)
 
     def make_move(self, point_x, point_y):
         # Move on Y Axis
         if point_x == self.x:
+            step = point_y - self.y
             for i in range(self.game_map[point_y][point_x]):
-                if 0 < self.y + (point_y - self.y) < self.map_h and self.game_map[self.y + (point_y - self.y)][self.x] is not '*':
+                if (0 < self.y + step < self.map_h and self.game_map[self.y + step][self.x]
+                        is not '*'):
                     self.game_map[self.y][self.x] = '*'
-                    self.y += (point_y - self.y)
+                    self.y += step
+        # Move on X Axis
         elif point_y == self.y:
-            # Move on X Axis
+            step = point_x - self.x
             for i in range(self.game_map[point_y][point_x]):
-                print(self.x + (point_x - self.x))
-                if 0 < self.x + (point_x - self.x) < self.map_w:
-                    if self.game_map[self.y][self.x + (point_x - self.x)] is not '*':
-                        self.game_map[self.y][self.x] = '*'
-                        self.x += (point_x - self.x)
-
-
-
+                if (0 < self.x + step < self.map_w and self.game_map[self.y][self.x + step]
+                        is not '*'):
+                    self.game_map[self.y][self.x] = '*'
+                    self.x += step
+        # Move on XY
+        elif (point_x + 1 == self.x and (point_y + 1 == self.y or point_y - 1 == self.y)) or (
+                point_x - 1 == self.x and (point_y + 1 == self.y or point_y - 1 == self.y)):
+            step_y = point_y - self.y
+            step_x = point_x - self.x
+            for i in range(self.game_map[point_y][point_x]):
+                if (0 < self.y + step_y < self.map_h and self.game_map[
+                    self.y + step_y][self.x] is not '*') and (
+                        0 < self.x + step_x < self.map_w and self.game_map[self.y][
+                            self.x + step_x] is not '*'):
+                    self.game_map[self.y][self.x] = '*'
+                    self.x += step_x
+                    self.y += step_y

@@ -32,6 +32,7 @@ class MainWindow(QWidget):
         goal_label = QLabel('$$$')
         score_label = QLabel('Score: $$$')
         reset_button = QPushButton('Reset')
+        reset_button.clicked.connect(self.reset_button_clicked)
         vbox.addWidget(game_title)
         vbox.addWidget(boxes_label)
         vbox.addWidget(goal_label)
@@ -49,12 +50,16 @@ class MainWindow(QWidget):
             self.table_widget.setColumnWidth(i, 30)
             for j in range(len(self.game.game_map[i])):
                 self.table_widget.setItem(i, j, QTableWidgetItem(str(self.game.game_map[i][j])))
+                self.table_widget.item(i, j).setSelected(False)
                 if self.game.game_map[i][j] == '*':
                     self.table_widget.item(i, j).setBackground(QColor(0, 0, 200))
                 if i == self.game.y and j == self.game.x:
                     self.table_widget.item(i, j).setBackground(QColor(200, 0, 0))
 
     def cell_clicked(self, r, c):
-        print(c, r)
         self.game.make_move(c, r)
+        self.update_table()
+
+    def reset_button_clicked(self):
+        self.game.randomize_map()
         self.update_table()
