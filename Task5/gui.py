@@ -14,7 +14,7 @@ class MainWindow(QWidget):
     def init_ui(self):
         # Window settings
         self.resize(1280, 720)
-        self.game = game.Game(10, 10)
+        self.game = game.Game(15, 15)
         self.game.randomize_map()
         # Move to center
         qr = self.frameGeometry()
@@ -43,12 +43,17 @@ class MainWindow(QWidget):
         reset_button.clicked.connect(self.reset_button_clicked)
 
         # Widgets adding to screen
+        vbox.addStretch()
         vbox.addWidget(game_title)
         vbox.addWidget(boxes_label)
         vbox.addWidget(goal_label)
         vbox.addWidget(self.score_label)
         vbox.addWidget(reset_button)
+        vbox.addStretch()
+
+        hbox.addStretch()
         hbox.addWidget(self.table_widget)
+        hbox.addStretch()
         hbox.addLayout(vbox)
 
         self.setLayout(hbox)
@@ -59,9 +64,11 @@ class MainWindow(QWidget):
         self.score_label.setText(f'Score: {self.game.score}')
         # Table
         for i in range(len(self.game.game_map)):
-            self.table_widget.setColumnWidth(i, 30)
+            self.table_widget.setColumnWidth(i, 40)
+            self.table_widget.setRowHeight(i, 40)
             for j in range(len(self.game.game_map[i])):
                 self.table_widget.setItem(i, j, QTableWidgetItem(str(self.game.game_map[i][j])))
+                self.table_widget.item(i, j).setTextAlignment(QtCore.Qt.AlignCenter)
                 self.table_widget.item(i, j).setSelected(False)
                 self.table_widget.item(i, j).setFlags(
                     self.table_widget.item(i, j).flags() & ~QtCore.Qt.ItemFlag.ItemIsEditable)  # Turn off edit ability

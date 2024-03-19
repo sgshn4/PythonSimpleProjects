@@ -1,5 +1,4 @@
 import random
-import copy
 
 
 class Game:
@@ -32,7 +31,6 @@ class Game:
 
     def make_move(self, point_x, point_y):
         if self.game_map[point_y][point_x] != '*' and not self.is_lose:
-            # Move on XY
             step_y = point_y - self.y
             step_x = point_x - self.x
             if -2 < step_x < 2 and -2 < step_y < 2:
