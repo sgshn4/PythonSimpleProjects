@@ -15,6 +15,7 @@ class Game:
     def randomize_map(self):
         self.randomize_position()
         self.is_lose = False
+        self.score = 0
         result = []
         for i in range(self.map_h):
             result.append([])
