@@ -4,17 +4,15 @@ from PyQt5.QtGui import QColor
 from PyQt5 import QtCore
 
 import game
+import settings
 
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.init_ui()
 
-        # Move to center
-        # qr = self.frameGeometry()
-        # cp = QDesktopWidget().availableGeometry().center()
-        # qr.moveCenter(cp)
-        # self.move(qr.topLeft())
+    def init_ui(self):
         self.setWindowTitle('Spy Game')
 
         # Menu bar
@@ -42,54 +40,47 @@ class CustomDialog(QDialog):
         self.setFixedSize(300, 100)
 
         # Widgets init
-        layout = QVBoxLayout()
-        hbox = QHBoxLayout()
-        label = QLabel('Map grid: ')
-        width = QSpinBox()
-        height = QSpinBox()
-        button = QPushButton('Save')
+        self.layout = QVBoxLayout()
+        self.hbox = QHBoxLayout()
+        self.label = QLabel('Map grid: ')
+        self.width = QSpinBox()
+        self.height = QSpinBox()
+        self.button = QPushButton('Save')
 
         # Widgets settings
-        width.setMinimum(2)
-        width.setMaximum(20)
-        width.setSingleStep(1)
-        width.valueChanged.connect(self.value_changed)
-        width.textChanged.connect(self.value_changed_str)
-        height.setMinimum(2)
-        height.setMaximum(20)
-        height.setSingleStep(1)
-        height.valueChanged.connect(self.value_changed)
-        height.textChanged.connect(self.value_changed_str)
-        button.clicked.connect(self.submit)
+        self.width.setMinimum(2)
+        self.width.setMaximum(20)
+        self.width.setSingleStep(1)
+        self.width.setValue(settings.get_parameter('game_w'))
+        self.height.setMinimum(2)
+        self.height.setMaximum(20)
+        self.height.setSingleStep(1)
+        self.height.setValue(settings.get_parameter('game_h'))
+        self.button.clicked.connect(self.submit)
 
         # Widgets adding to screen
-        layout.addWidget(label)
-        hbox.addWidget(width)
-        hbox.addWidget(height)
-        layout.addLayout(hbox)
-        layout.addWidget(button)
+        self.layout.addWidget(self.label)
+        self.hbox.addWidget(self.width)
+        self.hbox.addWidget(self.height)
+        self.layout.addLayout(self.hbox)
+        self.layout.addWidget(self.button)
 
-        self.setLayout(layout)
-
-    def value_changed(self, i):
-        print(i)
-
-    def value_changed_str(self, s):
-        print(s)
+        self.setLayout(self.layout)
 
     def submit(self):
+        settings.set_parameter('game_w', int(self.width.text()))
+        settings.set_parameter('game_h', int(self.height.text()))
         self.close()
 
 
 class GameWindow(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.w = 15
         self.init_ui()
 
     def init_ui(self):
         # Window settings
-        self.game = game.Game(self.w, self.w)
+        self.game = game.Game(settings.get_parameter('game_w'), settings.get_parameter('game_h'))
         self.game.randomize_map()
 
 
@@ -102,18 +93,12 @@ class GameWindow(QWidget):
 
         # Widgets settings
         self.table_widget = QTableWidget()
-        self.table_widget.setColumnCount(self.game.map_w)
-        self.table_widget.setRowCount(self.game.map_h)
         self.table_widget.cellClicked.connect(self.cell_clicked)
         self.table_widget.verticalHeader().hide()
-        self.table_widget.setFixedWidth(self.w * 40 + 2)
-        self.table_widget.setFixedHeight(self.w * 40 + 2)
+        self.reload_table()
         self.table_widget.horizontalHeader().hide()
         self.update_widgets()
         reset_button.clicked.connect(self.reset_button_clicked)
-
-
-
 
         # Widgets adding to screen
         vbox.addStretch()
@@ -153,9 +138,18 @@ class GameWindow(QWidget):
         self.check_lose()
 
     def reset_button_clicked(self):
+        self.reload_table()
+
+    def reload_table(self):
+        self.game.map_w = settings.get_parameter('game_w')
+        self.game.map_h = settings.get_parameter('game_h')
+        self.table_widget.setFixedWidth(self.game.map_w * 40 + 2)
+        self.table_widget.setFixedHeight(self.game.map_h * 40 + 2)
+        self.table_widget.setColumnCount(self.game.map_w)
+        self.table_widget.setRowCount(self.game.map_h)
+
         self.game.randomize_map()
         self.update_widgets()
-
     def check_lose(self):
         if self.game.is_lose:
             self.dialog = QMessageBox(self)
