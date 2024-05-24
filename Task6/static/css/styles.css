@@ -1,3 +1,123 @@
+body {
+font-size: 16pt;
+font-family: 'Nunito', sans-serif;
+margin: 0;
+}
+
 .name {
-color: red
+display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+width: 100%
+}
+
+a:active,
+a:hover,
+a {
+  text-decoration: none;
+  color: black;
+}
+.name-link {
+font-size: 32pt
+}
+
+ul {
+list-style-type: none;
+padding: 0
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+}
+
+.header-item {
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+}
+.header-item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.about-line {
+list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.about-line-item {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+}
+
+.name-link {
+    margin: 16pt;
+    width: 30%
+}
+
+footer {
+background: #3e3e3e;
+}
+
+.footer {
+color: white
+}
+
+.about-us {
+font-size: 32pt;
+text-align: center;
+}
+
+.about-us-description-1 {
+text-align: left;
+position: absolute;
+font-size: 20pt;
+top: 30%;
+left: -7%
+}
+
+.about-us-description-2 {
+text-align: left;
+position: absolute;
+font-size: 20pt;
+top: 30%;
+left: 10%
+}
+
+.decoration-item-1 {
+width: 10%
+}
+
+.about {
+padding: 2pt;
+}
+
+.about-decor-line {
+border: 1px solid;
+width: 90%
+}
+
+.about-text-container {
+    text-align: center
+}
+
+.about-text-2 {
+font-size: 32pt;
+font-style: bold
+}
+
+.about-text-3 {
+font-size: 24pt;
+}
+
+.about-text-to-search {
+font-size: 18pt;
+text-decoration: underline;
 }

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Об агенстве Castle
+{% endblock %}
+
+
+{% block body %}
+<div class="about-us"><b>О нас</b></div>
+<ul class="about">
+    <li>
+        <ul class="about-line">
+            <li class="about-line-item description-item-1">
+                <img src="{{ url_for('static', filename='drawable/1.png')}}" alt="Не удалось загрузить картинку">
+            </li>
+            <li class="about-line-item description-item-2">
+                <div class="about-us-description-1">
+                    <b>Castle</b> - это престижная риелторская компания, </br>специализирующаяся на роскошных
+                    недвижимостях по всему миру. Наша команда экспертов в сфере недвижимости обеспечивает</br>
+                    высококлассное обслуживание и индивидуальный подход к каждому клиенту.
+                </div>
+            </li>
+        </ul>
+        <hr class="about-decor-line">
+    </li>
+    <li>
+        <ul class="about-line">
+            <li class="about-line-item description-item-2">
+                <div class="about-us-description-2">
+                    <b>Наша миссия</b> - помочь вам найти идеальный дом, который станет вашим собственным замком, символом
+                    уюта и безопасности. Мы специализируемся на предоставлении самых привлекательных вариантов
+                    недвижимости в самых живописных и востребованных районах городов стран СНГ.
+                </div>
+            </li>
+            <li class="about-line-item description-item-1">
+                <img src="{{ url_for('static', filename='drawable/2.jpg')}}" alt="Не удалось загрузить картинку">
+            </li>
+        </ul>
+        <hr class="about-decor-line">
+    </li>
+     <li>
+        <ul class="about-line">
+            <li class="about-line-item description-item-1">
+                <img src="{{ url_for('static', filename='drawable/3.jpg')}}" alt="Не удалось загрузить картинку">
+            </li>
+            <li class="about-line-item description-item-2">
+                <div class="about-us-description-1">
+                    Наше агентство также предлагает <b>широкий спектр</b> дополнительных услуг, включая оценку недвижимости,
+                    юридическое сопровождение сделок, консультации по ипотечному кредитованию и управление недвижимостью.
+                    Мы стремимся сделать процесс сотрудничества с нами максимально удобным и эффективным для каждого клиента.
+                </div>
+            </li>
+        </ul>
+        <hr class="about-decor-line">
+    </li>
+    <li>
+        <div class="about-text-container">
+            <div class="about-text-2">Начните с поиска, оформите заявку,</div>
+            <div class="about-text-3">а мы займемся всем остальным</div>
+            <div class="about-to-search"><a href="/search/">Перейти к поиску</a></div>
+        </div>
+    </li>
+</ul>
+
+
+{% endblock %}

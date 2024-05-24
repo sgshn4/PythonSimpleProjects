@@ -3,10 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap" rel="stylesheet">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <div class="name">Castle</div>
-    {% block body %}{% endblock %}
+<div class="name"><a class="name-link" href="/">Castle</a>
+    <ul class="header">
+        <li class="header-item"><a class="home-link" href="/">Главная</a></li>
+        <li class="header-item">
+            <a class="search-link" href="/">Поиск недвижимости</a>
+        </li>
+        <li class="header-item">
+            <a class="about-link" href="/about">О нас</a>
+        </li>
+        <li class="header-item">
+        </li>
+        <li class="header-item">
+        </li>
+    </ul>
+</div>
+{% block body %}{% endblock %}
+<footer>
+    <div class="footer">huyaka</div>
+</footer>
 </body>
 </html>
