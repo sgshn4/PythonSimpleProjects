@@ -64,9 +64,12 @@ list-style-type: none;
 
 footer {
 background: #3e3e3e;
+color: white;
+text-align: center;
+padding: 8pt
 }
 
-.footer {
+footer a {
 color: white
 }
 
@@ -105,7 +108,8 @@ width: 90%
 }
 
 .about-text-container {
-    text-align: center
+    text-align: center;
+    margin-bottom: 32pt
 }
 
 .about-text-2 {
@@ -119,5 +123,11 @@ font-size: 24pt;
 
 .about-text-to-search {
 font-size: 18pt;
-text-decoration: underline;
+}
+
+.links-footer {
+list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
