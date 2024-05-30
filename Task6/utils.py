@@ -11,5 +11,5 @@ def open_db():
         attachments = []
         for j in i.get('attachments'):
             attachments.append(j.get('url'))
-        result.append(post.Post(i.get('id'), i.get('name'), attachments))
+        result.append(post.Post(i.get('id'), i.get('name'), i.get('price'), attachments))
     return result
