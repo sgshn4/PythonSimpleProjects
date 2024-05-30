@@ -4,7 +4,21 @@
 Недвижимость в Castle
 {% endblock %}
 
-
 {% block body %}
-{{db[0].get('name')}}
+<b class="index-title">Недвижимость</b>
+<div class="posts-container">
+    <table class="posts">
+        {% for i in range(5) %}
+        <tr class="post-line">
+            {% for j in range(2) %}
+            <td class="post">
+                <img src="static/posts/resources/{{db[i * 2 + j].attachments[0] }}" alt="Не удалось загрузить картинку">
+                <div class="post-title" onclick="location.href='/post/{{db[i * 2 + j].id}}';">{{db[i * 2 + j].name}}
+                </div>
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}
