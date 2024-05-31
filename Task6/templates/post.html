@@ -5,5 +5,20 @@ Castle - {{ post.name }}
 {% endblock %}
 
 {% block body %}
-
+<b class="index-title">{{ post.name }}</b>
+<ul class="middle-content-container">
+    <li class="post-part">
+        <img class="post-image" src="..\..\static/posts/resources/{{ post.attachments[0] }}"
+             alt="Не удалось загрузить картинку">
+    </li>
+    <li class="post-part-2">
+        <div class="contact-container">
+            <b class="price">{{ post.price }}</b>
+            <div class="contact">Заказать звонок</div>
+            <button class="call">+79009647412</button>
+        </div>
+    </li>
+</ul>
+<div class="area"><b>Площадь:</b> {{ post.area }}</div>
+<div class="description"><b>Описание:</b> {{ post.description }}</div>
 {% endblock %}

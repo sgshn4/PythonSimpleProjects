@@ -151,3 +151,64 @@ font-size: 28pt;
 margin-left: 16pt;
 margin-bottom: 32pt;
 }
+
+.middle-content-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.contact {
+font-size: 32pt
+}
+
+.post-part {
+margin-left: 1%
+}
+
+.post-part-2 {
+display: table;
+}
+
+.contact-container {
+text-align: center;
+display: table-cell;
+vertical-align: middle;
+}
+
+.price {
+font-size: 32pt;
+}
+
+.call {
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  height: 10%;
+  line-height: 45px;
+  border-radius: 45px;
+  margin-top: 8pt;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: 600;
+  color: #524f4e;
+  background: white;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+  transition: .3s;
+}
+.call:hover {
+  background: #2EE59D;
+  box-shadow: 0 15px 20px rgba(46, 229, 157, .4);
+  color: white;
+  transform: translateY(-7px);
+}
+
+.area {
+margin: 8pt
+}
+
+.description {
+margin: 8pt
+}

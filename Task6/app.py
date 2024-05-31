@@ -3,7 +3,6 @@ import utils
 import random
 
 app = Flask(__name__)
-
 db = utils.open_db()
 
 
