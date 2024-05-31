@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import utils
 import random
 
@@ -20,6 +20,11 @@ def about():
 @app.route('/post/<string:id>/')
 def post(id):
     return render_template('post.html', post=get_post(id))
+
+
+@app.route('/reviews/')
+def reviews():
+    return render_template('reviews.html')
 
 
 def generate_random():

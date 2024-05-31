@@ -66,8 +66,8 @@ footer {
 background: #3e3e3e;
 color: white;
 text-align: center;
-padding: 8pt;
 margin-top: 16pt;
+padding: 8pt;
 }
 
 footer a {
@@ -211,4 +211,20 @@ margin: 8pt
 
 .description {
 margin: 8pt
+}
+
+.content {
+height: 80vh;
+}
+
+.reviews-title {
+font-size: 32pt;
+margin: 8pt;
+}
+
+.review {
+margin: 32pt;
+}
+.reviewer {
+margin-left:80%
 }
