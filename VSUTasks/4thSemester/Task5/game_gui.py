@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget,  QPushButton, QTableWidget, QHBoxLayout, QVBoxLayout, QLabel
-from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox, QLineEdit, QAction, QMainWindow, QDialog, QSpinBox
+from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox, QAction, QMainWindow, QDialog, QSpinBox
 from PyQt5.QtGui import QColor
 from PyQt5 import QtCore
 
@@ -90,6 +90,7 @@ class GameWindow(QWidget):
         game_title = QLabel('Spy')
         self.score_label = QLabel('Score: $$$')
         reset_button = QPushButton('Reset')
+
 
         # Widgets settings
         self.table_widget = QTableWidget()

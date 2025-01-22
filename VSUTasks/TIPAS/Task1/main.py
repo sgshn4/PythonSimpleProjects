@@ -3,7 +3,7 @@ import numpy as np
 
 points_count = 10000
 width = 10
-frequency = 2
+frequency = 8
 
 
 def calculate_coordinates_harmonic(frequency):
@@ -28,13 +28,11 @@ def calculate_coordinates_spectrum(frequency):
     return frequencies, np.abs(frequency_spectrum)
 
 
-x, y = calculate_coordinates_harmonic(frequency)
+x, y = calculate_coordinates_spectrum(frequency)
 plt.plot(x, y, marker=None, linestyle='-')
 
 
 plt.title(f'Пример графика {frequency} ГЦ')
-plt.xlabel('Время, с')
-plt.ylabel('Амплитуда')
 plt.xlim(0, 30)
 plt.grid()
 plt.show()

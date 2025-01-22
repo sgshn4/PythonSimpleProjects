@@ -2,6 +2,7 @@ import pygame
 import math
 import colors
 import bullet as bt
+import aimer
 
 
 class Tank():
@@ -30,8 +31,8 @@ class Tank():
         mouse_x, mouse_y = pygame.mouse.get_pos()
         dx = mouse_x - (self.x)
         dy = mouse_y - (self.y)
-        self.turret_angle = math.degrees(math.atan2(dy, -dx))
-        self.cannon_angle = (180 / math.pi) * -math.atan2(dy, dx)
+        self.turret_angle = math.degrees(math.atan2(dy, -dx)) + self.angle
+        self.cannon_angle = (180 / math.pi) * -math.atan2(dy, dx) + self.angle
         screen.blit(rotated_car, rotated_rect)
 
         rotated_turret = pygame.transform.rotate(self.turret_image, self.turret_angle)
