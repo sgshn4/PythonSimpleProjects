@@ -3,7 +3,7 @@ import numpy as np
 
 points_count = 10000
 width = 10
-frequency = 8
+frequency = 1
 
 
 def calculate_coordinates_harmonic(frequency):
@@ -16,7 +16,7 @@ def calculate_coordinates_harmonic(frequency):
 def calculate_coordinates_digital(frequency):
     global points_count, width, points_count
     x = np.linspace(0, width * np.pi, points_count)
-    y = np.sign(np.cos(frequency * x))
+    y = (np.sign(np.cos(frequency * x)) + 1) / 2
     return x, y
 
 
@@ -28,7 +28,7 @@ def calculate_coordinates_spectrum(frequency):
     return frequencies, np.abs(frequency_spectrum)
 
 
-x, y = calculate_coordinates_spectrum(frequency)
+x, y = calculate_coordinates_digital(frequency)
 plt.plot(x, y, marker=None, linestyle='-')
 
 
