@@ -1,0 +1,45 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Screen Stream</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+        <style>
+            body { margin: 0; padding: 20px; background: #f0f0f0; }
+            #screen { max-width: 100%; border: 2px solid #333; box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+            .controls { margin: 10px 0; }
+            button { padding: 10px 20px; margin: 5px; font-size: 16px; }
+        </style>
+    </head>
+    <body>
+        <h1>Live Screen Streaming</h1>
+        <div class="controls">
+            <button onclick="startStream()">Start Stream</button>
+            <button onclick="stopStream()">Stop Stream</button>
+        </div>
+        <img id="screen" src="" alt="Screen stream will appear here">
+
+        <script>
+            const socket = io();
+            const screenImg = document.getElementById('screen');
+
+            socket.on('connect', function() {
+                console.log('Connected to server');
+            });
+
+            socket.on('screen_frame', function(data) {
+                screenImg.src = data.image;
+            });
+
+            function startStream() {
+                socket.emit('start_stream');
+            }
+
+            function stopStream() {
+                // Останавливаем обновление изображения
+                screenImg.src = '';
+            }
+        </script>
+    </body>
+    </html>
+    
