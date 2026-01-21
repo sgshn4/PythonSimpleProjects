@@ -1,0 +1,13 @@
+<h2>Вы студент №{{ student_id }}</h2>
+<p>Вы оцениваете студента №{{ target }}</p>
+
+<form method="post">
+    {% for c in criteria %}
+        <p>
+            {{ c.name }}:
+            <input type="number" name="criterion_{{ c.id }}" min="1" max="5" required>
+        </p>
+    {% endfor %}
+
+    <button>Отправить оценку</button>
+</form>

@@ -1,0 +1,32 @@
+<h2>Админ-панель</h2>
+
+<form method="post">
+    <label>Кого сейчас оценивают:</label>
+
+    <select name="target">
+        <option value="">— никто —</option>
+        {% for s in students %}
+            <option value="{{ s }}" {% if s == active %}selected{% endif %}>
+                Студент {{ s }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button>Применить</button>
+</form>
+
+<p>
+Текущая цель:
+<strong>
+{% if active %}
+    студент {{ active }}
+{% else %}
+    никто
+{% endif %}
+</strong>
+</p>
+
+<hr>
+<a href="/admin/download/">
+    <button type="button">Скачать все оценки</button>
+</a>

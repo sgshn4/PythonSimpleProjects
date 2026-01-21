@@ -1,0 +1,12 @@
+<h2>Критерии</h2>
+
+<form method="post">
+    <input name="name" placeholder="Название критерия">
+    <button>Добавить</button>
+</form>
+
+<ul>
+{% for c in criteria %}
+    <li>{{ c.name }}</li>
+{% endfor %}
+</ul>
