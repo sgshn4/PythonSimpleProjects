@@ -1,26 +1,46 @@
 import random
+import os
+from settings import GENEALOGY_FILE
 
-PREFIXES = ["Ar", "Be", "Cy", "Dr", "El", "Fa", "Go", "Ha", "Is", "Ju", "Ka", "Lu", "Mo", "Ni", "Or", "Pa", "Qu", "Ri", "Sy", "Ty", "Va", "Wy", "Xi", "Ye", "Ze"]
-SUFFIXES = ["on", "ia", "us", "ax", "is", "en", "ar", "el", "um", "or", "in", "os", "an"]
-CITY_PREFIXES = ["New ", "Old ", "Saint ", "Port ", "Fort ", "North ", "South ", "High "]
-CITY_ROOTS = ["burg", "ville", "chester", "mouth", "ford", "land", "stead", "bridge", "grad"]
-KINGDOM_TYPES = ["Empire of ", "Kingdom of ", "Republic of ", "Dominion of ", "Holy State of "]
+M_NAMES = ["Ivan", "Dmitry", "Sergey", "Aleksey", "Andrey", "Artyom", "Nikolay", "Vladimir", "Igor", "Maksim", "Pavel", "Oleg"]
+F_NAMES = ["Anna", "Elena", "Maria", "Olga", "Svetlana", "Tatiana", "Natalia", "Yulia", "Irina", "Daria", "Ksenia", "Alina"]
+SURNAMES = ["Ivanov", "Petrov", "Smirnov", "Kuznetsov", "Sokolov", "Popov", "Lebedev", "Kozlov", "Novikov", "Morozov", "Solovyov", "Vasiliev"]
 
-def generate_name():
-    return random.choice(PREFIXES) + "-" + random.choice(SUFFIXES)
+def generate_russian_name(gender):
+    first = random.choice(M_NAMES if gender == 0 else F_NAMES)
+    last = random.choice(SURNAMES)
+    if gender == 1: last += "a"
+    return first, last
 
-def generate_city_name():
-    if random.random() < 0.3:
-        return random.choice(CITY_PREFIXES) + generate_name().split('-')[0]
-    return generate_name().split('-')[0] + random.choice(CITY_ROOTS)
+def inherit_surname(f_last, m_last, child_gender):
+    rand = random.random()
+    f_root = f_last[:-1] if f_last.endswith('a') else f_last
+    m_root = m_last[:-1] if m_last.endswith('a') else m_last
+    if rand < 0.85: base = f_root
+    elif rand < 0.98: base = m_root
+    else: base = random.choice(SURNAMES)
+    return base + ("a" if child_gender == 1 else "")
 
-def generate_kingdom_name(founder_name):
-    return random.choice(KINGDOM_TYPES) + founder_name
+def generate_city_name(surname):
+    root = surname[:-1] if surname.endswith('a') else surname
+    suffixes = ["grad", "sk", "o", "vka", "burg"]
+    return root + random.choice(suffixes)
+
+def generate_kingdom_name(surname):
+    root = surname[:-1] if surname.endswith('a') else surname
+    types = ["Empire of ", "Kingdom of ", "Republic of ", "State of "]
+    return random.choice(types) + root
 
 def mutate_color(c1, c2, force_bright=False):
     if force_bright:
-        return random.choice([(255, 50, 50), (50, 255, 50), (80, 150, 255), (255, 255, 50), (255, 50, 255), (0, 255, 255)])
-    new_c = list(((c1[i] + c2[i]) // 2 for i in range(3)))
-    idx = random.randint(0, 2)
-    new_c[idx] = max(50, min(255, new_c[idx] + random.choice([-30, 30])))
-    return tuple(new_c)
+        return (random.randint(50, 255), random.randint(50, 255), random.randint(50, 255))
+    return tuple(max(40, min(255, (c1[i] + c2[i]) // 2 + random.randint(-15, 15))) for i in range(3))
+
+def save_to_genealogy(name, p1, p2, gen, gender):
+    with open(GENEALOGY_FILE, "a", encoding="utf-8") as f:
+        f.write(f"{name}|{p1}|{p2}|{gen}|{gender}\n")
+
+def clear_genealogy():
+    # Надежный способ очистки файла
+    with open(GENEALOGY_FILE, "w", encoding="utf-8") as f:
+        f.write("")
